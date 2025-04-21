@@ -155,5 +155,12 @@ export const players = [
         totalPoints: 0,
         weekly: []
       },
+      {
+        id: '15',
+        name: 'Max',
+        position: 'Midfielder',
+        totalPoints: 0,
+        weekly: []
+      },
   ];
   

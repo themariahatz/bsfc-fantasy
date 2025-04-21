@@ -7,7 +7,7 @@ const AdminForm = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [adminCredentials, setAdminCredentials] = useState({ username: '', password: '' });
   const [position, setPosition] = useState('Defender');
-  const [gameweek, setGameweek] = useState(1);
+  const [gameweek, setGameweek] = useState(null);
   const [selectedPlayer, setSelectedPlayer] = useState('');
   const [entries, setEntries] = useState([]);
 
@@ -103,6 +103,7 @@ const AdminForm = () => {
             <input
               type="number"
               min="1"
+              placeholder="Enter gameweek"
               value={gameweek}
               onChange={(e) => setGameweek(parseInt(e.target.value))}
               className="w-full border border-gray-300 rounded-md p-2"
