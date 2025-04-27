@@ -4,7 +4,7 @@ import Pitch from '../Pitch';
 const GameweekView = ({ players}) => {
     const matchScores = {
         1: 'Bus Stop FC 5 - 0 Slurpies',
-        2: 'TBD',
+        2: 'Bus Stop FC 3 - 0 Beer Bellies',
         3: 'TBD',
         // Add more gameweeks as needed
       };
