@@ -51,9 +51,10 @@ const Pitch = ({ week }) => {
     players.filter((player) => player.position === position);
 
   const midfielders = groupByPosition('Midfielder');
-  const midRow1 = midfielders.slice(-1);
-  const midRow2 = midfielders.slice(-4, -1);
-  const midRow3 = midfielders.slice(0, -4);
+// Fill middle row first (max 3)
+const midRow2 = midfielders.slice(0, 3);
+// Overflow to top row (everything else)
+const midRow1 = midfielders.slice(3);
 
   return (
     <div className={styles.gameweekView}>
@@ -101,7 +102,7 @@ const Pitch = ({ week }) => {
               />
             ))}
           </div>
-          <div className={styles.row}>
+          {/* <div className={styles.row}>
             {midRow3.map((player) => (
               <PlayerCard
                 key={player.id}
@@ -110,7 +111,7 @@ const Pitch = ({ week }) => {
                 onClick={() => setSelectedPlayer(player)}
               />
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
 
