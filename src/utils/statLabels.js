@@ -21,7 +21,8 @@ export const statLabels = {
     assistMaria: "Assist Maria",
     scoreOutsideBox: "Score outside the box",
     scoringHeader: "Scoring a header",
-    scoringVolley: "Scoring a valley"
+    scoringVolley: "Scoring a valley",
+    review: "Write a review for Bus Stop"
 
   };
 

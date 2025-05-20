@@ -17,6 +17,7 @@ const Rules = () => {
                 Scoring a goal: <span className="text-green-600 font-bold">+5</span>
                 <ul className="ml-6 list-disc text-sm italic text-purple-700 space-y-1">
                   <li>+5pt: Score a bicycle kick</li>
+                  <li>+4pt: Write a review for Bus Stop Cafe on Google or Yelp</li>
                   <li>+3pt: Score from outside the box</li>
                   <li>+2pt: Scoring a header</li>
                   <li>+2pt: Scoring a volley</li>

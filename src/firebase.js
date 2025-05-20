@@ -1,12 +1,10 @@
-// Import the functions you need from the SDKs you need
+// Import Firebase SDKs
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // NEW
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyC7qt7GQNSrXnHvUKlVOojeHwvijgsGZ58",
   authDomain: "bsfc-fantasy.firebaseapp.com",
@@ -21,5 +19,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+const auth = getAuth(app); // NEW
 
-export { db };
+// Optional: Automatically sign in the dev/admin user (only for development!)
+signInWithEmailAndPassword(auth, "maria.baseballfan@gmail.com", "Paokforlife1999!")
+  .then((userCredential) => {
+    console.log("Logged in as:", userCredential.user.uid);
+  })
+  .catch((error) => {
+    console.error("Login failed:", error.code, error.message);
+  });
+
+export { db, auth }; // Export both

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { scoringRules } from '../../utils/scoringRules';
 import { players } from '../../data/mockPlayers';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { saveGameweekData } from '../../utils/saveGameweekData';
 
 const AdminForm = () => {
@@ -11,13 +12,19 @@ const AdminForm = () => {
   const [selectedPlayer, setSelectedPlayer] = useState('');
   const [entries, setEntries] = useState([]);
 
-  const handleLogin = (e) => {
+  const auth = getAuth();
+  
+  const handleLogin = async (e) => {
     e.preventDefault();
     const { username, password } = adminCredentials;
-    if (username === 'admin' && password === 'ilovebusstop') {
+  
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, username, password);
+      console.log("✅ Logged in:", userCredential.user.uid);
       setIsAuthenticated(true);
-    } else {
-      alert('You really tried huh?');
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert("Login failed. Please check your credentials.");
     }
   };
 

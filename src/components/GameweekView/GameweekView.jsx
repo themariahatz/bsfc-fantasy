@@ -7,6 +7,7 @@ const GameweekView = ({ players}) => {
         2: 'Bus Stop FC 3 - 0 Beer Bellies',
         3: 'Bus Stop FC 6 - 0 Whose Your Ma',
         4: 'Bus Stop FC 2 - 1 Game of Throw Ins',
+        5: 'Bus Stop FC 5 - 0 Slurpies',
         // Add more gameweeks as needed
       };
   const [week, setWeek] = useState(1); // ← shared state for header + field

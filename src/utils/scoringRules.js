@@ -20,4 +20,5 @@ export const scoringRules = {
     scoreOutsideBox: 3,
     scoringHeader: 2,
     scoringVolley: 2,
+    review: 4,
   };
