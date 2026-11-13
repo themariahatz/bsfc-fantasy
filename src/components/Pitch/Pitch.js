@@ -9,41 +9,51 @@ import { statLabels } from '../../utils/statLabels';
 const Pitch = ({ week }) => {
   const [players, setPlayers] = useState([]);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const q = query(collectionGroup(db, 'gameweeks'), where('week', '==', week));
-      const snapshot = await getDocs(q);
-      const gameweekData = [];
-  
-      for (const docSnap of snapshot.docs) {
-        const data = docSnap.data();
-        const pathParts = docSnap.ref.path.split('/');
-        const playerId = pathParts[1]; // e.g., "1"
-  
-        // 🔍 Fetch top-level player doc
-        const playerDocRef = doc(db, 'players', playerId);
-        const playerDocSnap = await getDoc(playerDocRef);
-        const playerData = playerDocSnap.exists() ? playerDocSnap.data() : {};
-  
-        gameweekData.push({
-          id: playerId,
-          name: playerData.name || 'Unknown',
-          position: data.position || 'Midfielder',
-          gameweek: {
-            points: data.points,
-            breakdown: Object.entries(data.breakdown).map(([stat, { value, points }]) => ({
-              stat,
-              value,
-              points,
-            })),
-          },
-        });
+      try {
+        setError(null);
+        const q = query(collectionGroup(db, 'gameweeks'), where('week', '==', week));
+        const snapshot = await getDocs(q);
+        const gameweekData = [];
+
+        for (const docSnap of snapshot.docs) {
+          const data = docSnap.data();
+          const pathParts = docSnap.ref.path.split('/');
+          // Only use players/{id}/gameweeks/{week}; skip copies nested elsewhere
+          if (pathParts.length !== 4 || pathParts[0] !== 'players') continue;
+          const playerId = pathParts[1]; // e.g., "1"
+    
+          // 🔍 Fetch top-level player doc
+          const playerDocRef = doc(db, 'players', playerId);
+          const playerDocSnap = await getDoc(playerDocRef);
+          const playerData = playerDocSnap.exists() ? playerDocSnap.data() : {};
+    
+          gameweekData.push({
+            id: playerId,
+            name: playerData.name || 'Unknown',
+            position: data.position || 'Midfielder',
+            gameweek: {
+              points: data.points,
+              breakdown: Object.entries(data.breakdown).map(([stat, { value, points }]) => ({
+                stat,
+                value,
+                points,
+              })),
+            },
+          });
+        }
+    
+        setPlayers(gameweekData);
+      } catch (err) {
+        console.error('Failed to load gameweek data:', err);
+        setPlayers([]);
+        setError('Could not load gameweek points. Please try again later.');
       }
-  
-      setPlayers(gameweekData);
     };
-  
+
     fetchData();
   }, [week]);
 
@@ -58,6 +68,7 @@ const midRow1 = midfielders.slice(3);
 
   return (
     <div className={styles.gameweekView}>
+      {error && <p className="text-center text-red-600 mb-4">{error}</p>}
       <div className={styles.pitch}>
         <div className={styles.line}>
           {groupByPosition('Goalkeeper').map((player) => (

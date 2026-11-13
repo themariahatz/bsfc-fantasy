@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // NEW
+import { getAuth } from "firebase/auth";
 
 // Firebase config
 const firebaseConfig = {
@@ -19,15 +19,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
-const auth = getAuth(app); // NEW
+const auth = getAuth(app);
 
-// Optional: Automatically sign in the dev/admin user (only for development!)
-signInWithEmailAndPassword(auth, "maria.baseballfan@gmail.com", "Paokforlife1999!")
-  .then((userCredential) => {
-    console.log("Logged in as:", userCredential.user.uid);
-  })
-  .catch((error) => {
-    console.error("Login failed:", error.code, error.message);
-  });
-
-export { db, auth }; // Export both
+export { db, auth };

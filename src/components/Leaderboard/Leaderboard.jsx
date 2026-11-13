@@ -5,17 +5,24 @@ import { db } from "../../firebase";
 const Leaderboard = () => {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPlayers = async () => {
-      const playersCollection = collection(db, "players");
-      const snapshot = await getDocs(playersCollection);
-      const playersData = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setPlayers(playersData);
-      setLoading(false);
+      try {
+        const playersCollection = collection(db, "players");
+        const snapshot = await getDocs(playersCollection);
+        const playersData = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPlayers(playersData);
+      } catch (err) {
+        console.error("Failed to load leaderboard:", err);
+        setError("Could not load the leaderboard. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchPlayers();
@@ -25,6 +32,10 @@ const Leaderboard = () => {
 
   if (loading) {
     return <p className="text-center mt-10 text-purple-700">Loading...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center mt-10 text-red-600">{error}</p>;
   }
 
   return (
