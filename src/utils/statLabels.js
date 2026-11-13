@@ -3,7 +3,6 @@ export const statLabels = {
     scoringVolley: "Scoring Volley",
     goal: "Goal",
     assist: "Assist",
-    cleanSheet: "Clean Sheet",
     photoOnBusStop: "Take a photo that is posted on Bus Stop FC",
     late: "late",
     forgotJersey: "Forgot Jersey",
@@ -21,7 +20,6 @@ export const statLabels = {
     assistMaria: "Assist Maria",
     scoreOutsideBox: "Score outside the box",
     scoringHeader: "Scoring a header",
-    scoringVolley: "Scoring a valley",
     review: "Write a review for Bus Stop"
 
   };

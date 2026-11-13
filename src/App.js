@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Leaderboard from './components/Leaderboard';
-import Tabs from './components/Tabs';
 import { players as mockPlayers } from './data/mockPlayers';
 import GameweekView from './components/GameweekView';
 import AdminForm from './components/AdminForm';
